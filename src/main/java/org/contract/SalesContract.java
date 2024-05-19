@@ -62,7 +62,7 @@ public class SalesContract extends Contract {
             this.processingFee = 495;
         }
 
-        double totalPrice = salesTaxAmount + recordingFee + processingFee;
+        double totalPrice = getVehicleSold().getPrice() + salesTaxAmount + recordingFee + processingFee;
 
         return totalPrice;
 
@@ -79,14 +79,18 @@ public class SalesContract extends Contract {
 
             monthlyPayment = getVehicleSold().getPrice() + totalInterest / 48;
 
+            return monthlyPayment;
+
         }else if (this.isFinanced && getVehicleSold().getPrice() < 10000){
 
             double totalInterest = getVehicleSold().getPrice() * 5.25;
 
             monthlyPayment = getVehicleSold().getPrice() + totalInterest / 24;
 
+            return monthlyPayment;
+
         }
 
-        return monthlyPayment;
+        return 0;
     }
 }
